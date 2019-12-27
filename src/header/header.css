@@ -1,0 +1,16 @@
+.header {
+  background-color: #151515;
+  color: #ffffff;
+  padding: 15px;
+  text-align: center;
+}
+
+.left-header-title {
+  background-color: #848484;
+  padding-left: 2px;
+}
+
+.right-header-title {
+  background-color: #b40431;
+  padding-right: 2px;
+}
