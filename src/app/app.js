@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "../header/header";
+import Utilities from "../utilities/utilities";
 import "./app.css";
 
 class App extends React.Component {
@@ -7,8 +8,7 @@ class App extends React.Component {
     return (
       <div className="app">
         <Header />
-        <h1>Hello CodeSandbox</h1>
-        <h2>Start editing to see some magic happen!</h2>
+        <Utilities />
       </div>
     );
   }
