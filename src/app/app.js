@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../header/header";
 import Utilities from "../utilities/utilities";
+import Settings from "../settings/settings";
 import "./app.css";
 
 class App extends React.Component {
@@ -27,6 +28,7 @@ class App extends React.Component {
           isSettingsDisplayed={this.state.isSettingsDisplayed}
           onSettingsClicked={this.handleSettingsClick}
         />
+        <Settings isSettingsDisplayed={this.state.isSettingsDisplayed} />
       </div>
     );
   }
