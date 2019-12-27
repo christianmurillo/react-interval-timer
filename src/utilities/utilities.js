@@ -4,16 +4,10 @@ import "./utilities.css";
 class Utilities extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isSettingsDisplayed: true
-    };
-    // This binding is necessary to make `this` work in the callback
-    this.handleClick = this.handleClick.bind(this);
+    this.handleSettingsClick = this.handleSettingsClick.bind(this);
   }
-  handleClick() {
-    this.setState(prevState => ({
-      isSettingsDisplayed: !prevState.isSettingsDisplayed
-    }));
+  handleSettingsClick() {
+    this.props.onSettingsClicked();
   }
   render() {
     return (
@@ -21,8 +15,8 @@ class Utilities extends React.Component {
         <div className="icons">
           <ul>
             <li
-              className={this.state.isSettingsDisplayed ? "active" : null}
-              onClick={this.handleClick}
+              className={this.props.isSettingsDisplayed ? "active" : null}
+              onClick={this.handleSettingsClick}
             >
               <i className="fa fa-cogs fa-2x" aria-hidden="true" />
             </li>
