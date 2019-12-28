@@ -11,6 +11,7 @@ class Settings extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleTotalRoundsChange = this.handleTotalRoundsChange.bind(this);
     this.handleRoundLengthChange = this.handleRoundLengthChange.bind(this);
+    this.handleEndOfRoundChange = this.handleEndOfRoundChange.bind(this);
   }
 
   handleSubmit(event) {
@@ -20,7 +21,9 @@ class Settings extends React.Component {
       "totalRounds: ",
       this.props.totalRounds,
       "\nroundLength: ",
-      this.props.roundLength
+      this.props.roundLength,
+      "\nendOfRoundSignal: ",
+      this.props.endOfRoundSignal
     );
   }
 
@@ -30,6 +33,10 @@ class Settings extends React.Component {
 
   handleRoundLengthChange(event) {
     this.props.onRoundLengthChange(event);
+  }
+
+  handleEndOfRoundChange(event) {
+    this.props.onEndOfRoundSignalChange(event);
   }
 
   render() {
@@ -111,7 +118,13 @@ class Settings extends React.Component {
             <label>
               <strong>END OF ROUND SIGNAL (seconds): </strong>
             </label>
-            <select type="number">{endOfRoundSignalOptions}</select>
+            <select
+              type="number"
+              value={this.props.endOfRoundSignal}
+              onChange={this.handleEndOfRoundChange}
+            >
+              {endOfRoundSignalOptions}
+            </select>
 
             <br />
             <br />
