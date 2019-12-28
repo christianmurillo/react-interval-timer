@@ -44,23 +44,23 @@ class App extends React.Component {
   }
 
   handleTotalRoundsChange(event) {
-    this.setState({ totalRounds: event.target.value });
+    this.setState({ totalRounds: parseInt(event.target.value, 10) });
   }
 
   handleRoundLengthChange(event) {
-    this.setState({ roundLength: event.target.value });
+    this.setState({ roundLength: parseInt(event.target.value, 10) });
   }
 
   handleEndOfRoundChange(event) {
-    this.setState({ endOfRoundSignal: event.target.value });
+    this.setState({ endOfRoundSignal: parseInt(event.target.value, 10) });
   }
 
   handleRestPeriodChange(event) {
-    this.setState({ restPeriod: event.target.value });
+    this.setState({ restPeriod: parseInt(event.target.value, 10) });
   }
 
   handleStartCountdownChange(event) {
-    this.setState({ startCountdown: event.target.value });
+    this.setState({ startCountdown: parseInt(event.target.value, 10) });
   }
 
   render() {
