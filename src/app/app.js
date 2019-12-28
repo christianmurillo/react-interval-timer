@@ -12,7 +12,8 @@ class App extends React.Component {
       totalRounds: 1,
       roundLength: 1,
       endOfRoundSignal: 10,
-      restPeriod: 30
+      restPeriod: 30,
+      startCountdown: 10
     };
     // This binding is necessary to make `this` work in the callback
     this.handleSettingsClick = this.handleSettingsClick.bind(this);
@@ -20,6 +21,9 @@ class App extends React.Component {
     this.handleRoundLengthChange = this.handleRoundLengthChange.bind(this);
     this.handleEndOfRoundChange = this.handleEndOfRoundChange.bind(this);
     this.handleRestPeriodChange = this.handleRestPeriodChange.bind(this);
+    this.handleStartCountdownChange = this.handleStartCountdownChange.bind(
+      this
+    );
   }
 
   handleSettingsClick() {
@@ -44,6 +48,10 @@ class App extends React.Component {
     this.setState({ restPeriod: event.target.value });
   }
 
+  handleStartCountdownChange(event) {
+    this.setState({ startCountdown: event.target.value });
+  }
+
   render() {
     return (
       <div className="app">
@@ -62,6 +70,8 @@ class App extends React.Component {
           onEndOfRoundSignalChange={this.handleEndOfRoundChange}
           restPeriod={this.state.restPeriod}
           onRestPeriodChange={this.handleRestPeriodChange}
+          startCountdown={this.state.startCountdown}
+          onStartCountdownChange={this.handleStartCountdownChange}
         />
       </div>
     );

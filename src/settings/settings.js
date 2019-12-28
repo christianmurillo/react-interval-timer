@@ -13,6 +13,9 @@ class Settings extends React.Component {
     this.handleRoundLengthChange = this.handleRoundLengthChange.bind(this);
     this.handleEndOfRoundChange = this.handleEndOfRoundChange.bind(this);
     this.handleRestPeriodChange = this.handleRestPeriodChange.bind(this);
+    this.handleStartCountdownChange = this.handleStartCountdownChange.bind(
+      this
+    );
   }
 
   handleSubmit(event) {
@@ -26,7 +29,9 @@ class Settings extends React.Component {
       "\nendOfRoundSignal: ",
       this.props.endOfRoundSignal,
       "\nrestPeriod: ",
-      this.props.restPeriod
+      this.props.restPeriod,
+      "\nstartCountdown: ",
+      this.props.startCountdown
     );
   }
 
@@ -44,6 +49,10 @@ class Settings extends React.Component {
 
   handleRestPeriodChange(event) {
     this.props.onRestPeriodChange(event);
+  }
+
+  handleStartCountdownChange(event) {
+    this.props.onStartCountdownChange(event);
   }
 
   render() {
@@ -153,7 +162,13 @@ class Settings extends React.Component {
             <label>
               <strong>START COUNTDOWN (seconds): </strong>
             </label>
-            <select type="number">{endOfRoundSignalOptions}</select>
+            <select
+              type="number"
+              value={this.props.startCountdown}
+              onChange={this.handleStartCountdownChange}
+            >
+              {endOfRoundSignalOptions}
+            </select>
 
             <br />
             <br />
