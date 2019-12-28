@@ -11,13 +11,15 @@ class App extends React.Component {
       isSettingsDisplayed: true,
       totalRounds: 1,
       roundLength: 1,
-      endOfRoundSignal: 10
+      endOfRoundSignal: 10,
+      restPeriod: 30
     };
     // This binding is necessary to make `this` work in the callback
     this.handleSettingsClick = this.handleSettingsClick.bind(this);
     this.handleTotalRoundsChange = this.handleTotalRoundsChange.bind(this);
     this.handleRoundLengthChange = this.handleRoundLengthChange.bind(this);
     this.handleEndOfRoundChange = this.handleEndOfRoundChange.bind(this);
+    this.handleRestPeriodChange = this.handleRestPeriodChange.bind(this);
   }
 
   handleSettingsClick() {
@@ -38,6 +40,10 @@ class App extends React.Component {
     this.setState({ endOfRoundSignal: event.target.value });
   }
 
+  handleRestPeriodChange(event) {
+    this.setState({ restPeriod: event.target.value });
+  }
+
   render() {
     return (
       <div className="app">
@@ -54,6 +60,8 @@ class App extends React.Component {
           onRoundLengthChange={this.handleRoundLengthChange}
           endOfRoundSignal={this.state.endOfRoundSignal}
           onEndOfRoundSignalChange={this.handleEndOfRoundChange}
+          restPeriod={this.state.restPeriod}
+          onRestPeriodChange={this.handleRestPeriodChange}
         />
       </div>
     );

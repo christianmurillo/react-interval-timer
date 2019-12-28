@@ -12,6 +12,7 @@ class Settings extends React.Component {
     this.handleTotalRoundsChange = this.handleTotalRoundsChange.bind(this);
     this.handleRoundLengthChange = this.handleRoundLengthChange.bind(this);
     this.handleEndOfRoundChange = this.handleEndOfRoundChange.bind(this);
+    this.handleRestPeriodChange = this.handleRestPeriodChange.bind(this);
   }
 
   handleSubmit(event) {
@@ -23,7 +24,9 @@ class Settings extends React.Component {
       "\nroundLength: ",
       this.props.roundLength,
       "\nendOfRoundSignal: ",
-      this.props.endOfRoundSignal
+      this.props.endOfRoundSignal,
+      "\nrestPeriod: ",
+      this.props.restPeriod
     );
   }
 
@@ -37,6 +40,10 @@ class Settings extends React.Component {
 
   handleEndOfRoundChange(event) {
     this.props.onEndOfRoundSignalChange(event);
+  }
+
+  handleRestPeriodChange(event) {
+    this.props.onRestPeriodChange(event);
   }
 
   render() {
@@ -132,7 +139,13 @@ class Settings extends React.Component {
             <label>
               <strong>REST PERIOD (seconds): </strong>
             </label>
-            <select type="number">{restPeriodOptions}</select>
+            <select
+              type="number"
+              value={this.props.restPeriod}
+              onChange={this.handleRestPeriodChange}
+            >
+              {restPeriodOptions}
+            </select>
 
             <br />
             <br />
