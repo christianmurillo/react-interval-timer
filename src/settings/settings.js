@@ -10,16 +10,26 @@ class Settings extends React.Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleTotalRoundsChange = this.handleTotalRoundsChange.bind(this);
+    this.handleRoundLengthChange = this.handleRoundLengthChange.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
     // get values
-    console.info("totalRounds: ", this.props.totalRounds);
+    console.info(
+      "totalRounds: ",
+      this.props.totalRounds,
+      "\nroundLength: ",
+      this.props.roundLength
+    );
   }
 
   handleTotalRoundsChange(event) {
     this.props.onTotalRoundsChange(event);
+  }
+
+  handleRoundLengthChange(event) {
+    this.props.onRoundLengthChange(event);
   }
 
   render() {
@@ -87,7 +97,13 @@ class Settings extends React.Component {
             <label>
               <strong>ROUND LENGTH (minutes): </strong>
             </label>
-            <select type="number">{roundLengthOptions}</select>
+            <select
+              type="number"
+              value={this.props.roundLength}
+              onChange={this.handleRoundLengthChange}
+            >
+              {roundLengthOptions}
+            </select>
 
             <br />
             <br />
