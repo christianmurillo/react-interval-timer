@@ -15,7 +15,10 @@ class App extends React.Component {
       endOfRoundSignal: 10,
       restPeriod: 30,
       startCountdown: 10,
-      isTimerDisplayed: false
+      isTimerDisplayed: false,
+      roundMinute: 0,
+      roundSecond: 0,
+      currentRound: 0
     };
     // This binding is necessary to make `this` work in the callback
     this.handleSettingsClick = this.handleSettingsClick.bind(this);
@@ -88,6 +91,9 @@ class App extends React.Component {
         <Timer
           isTimerDisplayed={this.state.isTimerDisplayed}
           totalRounds={this.state.totalRounds}
+          roundMinute={this.state.roundMinute}
+          roundSecond={this.state.roundSecond}
+          currentRound={this.state.currentRound}
         />
       </div>
     );
