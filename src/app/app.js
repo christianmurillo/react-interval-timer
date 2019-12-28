@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../header/header";
 import Utilities from "../utilities/utilities";
 import Settings from "../settings/settings";
+import Timer from "../timer/timer";
 import "./app.css";
 
 class App extends React.Component {
@@ -13,7 +14,8 @@ class App extends React.Component {
       roundLength: 1,
       endOfRoundSignal: 10,
       restPeriod: 30,
-      startCountdown: 10
+      startCountdown: 10,
+      isTimerDisplayed: false
     };
     // This binding is necessary to make `this` work in the callback
     this.handleSettingsClick = this.handleSettingsClick.bind(this);
@@ -24,11 +26,20 @@ class App extends React.Component {
     this.handleStartCountdownChange = this.handleStartCountdownChange.bind(
       this
     );
+    this.handleSettingsSubmit = this.handleSettingsSubmit.bind(this);
   }
 
   handleSettingsClick() {
     this.setState(prevState => ({
       isSettingsDisplayed: !prevState.isSettingsDisplayed
+    }));
+  }
+
+  handleSettingsSubmit() {
+    this.handleSettingsClick();
+    // show timer
+    this.setState(prevState => ({
+      isTimerDisplayed: !prevState.isTimerDisplayed
     }));
   }
 
@@ -62,6 +73,7 @@ class App extends React.Component {
         />
         <Settings
           isSettingsDisplayed={this.state.isSettingsDisplayed}
+          onSettingsSubmit={this.handleSettingsSubmit}
           totalRounds={this.state.totalRounds}
           onTotalRoundsChange={this.handleTotalRoundsChange}
           roundLength={this.state.roundLength}
@@ -72,6 +84,10 @@ class App extends React.Component {
           onRestPeriodChange={this.handleRestPeriodChange}
           startCountdown={this.state.startCountdown}
           onStartCountdownChange={this.handleStartCountdownChange}
+        />
+        <Timer
+          isTimerDisplayed={this.state.isTimerDisplayed}
+          totalRounds={this.state.totalRounds}
         />
       </div>
     );

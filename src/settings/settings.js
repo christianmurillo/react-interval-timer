@@ -33,6 +33,8 @@ class Settings extends React.Component {
       "\nstartCountdown: ",
       this.props.startCountdown
     );
+    // hide settings
+    this.props.onSettingsSubmit();
   }
 
   handleTotalRoundsChange(event) {

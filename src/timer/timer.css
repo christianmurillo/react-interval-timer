@@ -1,0 +1,11 @@
+.inactive {
+  display: none;
+}
+
+.timer {
+  display: block;
+}
+
+.rounds-container {
+  text-align: center;
+}
