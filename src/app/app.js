@@ -8,16 +8,22 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isSettingsDisplayed: true
+      isSettingsDisplayed: true,
+      totalRounds: 1
     };
     // This binding is necessary to make `this` work in the callback
     this.handleSettingsClick = this.handleSettingsClick.bind(this);
+    this.handleTotalRoundsChange = this.handleTotalRoundsChange.bind(this);
   }
 
   handleSettingsClick() {
     this.setState(prevState => ({
       isSettingsDisplayed: !prevState.isSettingsDisplayed
     }));
+  }
+
+  handleTotalRoundsChange(event) {
+    this.setState({ totalRounds: event.target.value });
   }
 
   render() {
@@ -28,7 +34,11 @@ class App extends React.Component {
           isSettingsDisplayed={this.state.isSettingsDisplayed}
           onSettingsClicked={this.handleSettingsClick}
         />
-        <Settings isSettingsDisplayed={this.state.isSettingsDisplayed} />
+        <Settings
+          isSettingsDisplayed={this.state.isSettingsDisplayed}
+          totalRounds={this.state.totalRounds}
+          onTotalRoundsChange={this.handleTotalRoundsChange}
+        />
       </div>
     );
   }

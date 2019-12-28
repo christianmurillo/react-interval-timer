@@ -5,18 +5,26 @@ class Settings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      totalRounds: 24,
+      maxRounds: 24,
       maxRoundLength: 5
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleTotalRoundsChange = this.handleTotalRoundsChange.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
+    // get values
+    console.info("totalRounds: ", this.props.totalRounds);
   }
+
+  handleTotalRoundsChange(event) {
+    this.props.onTotalRoundsChange(event);
+  }
+
   render() {
     const totalRoundOptions = [];
-    for (let i = 1; i <= this.state.totalRounds; i++) {
+    for (let i = 1; i <= this.state.maxRounds; i++) {
       totalRoundOptions.push(
         <option key={i} value={i}>
           {i}
@@ -65,7 +73,13 @@ class Settings extends React.Component {
             <label>
               <strong>TOTAL ROUNDS: </strong>
             </label>
-            <select type="number">{totalRoundOptions}</select>
+            <select
+              type="number"
+              value={this.props.totalRounds}
+              onChange={this.handleTotalRoundsChange}
+            >
+              {totalRoundOptions}
+            </select>
 
             <br />
             <br />
