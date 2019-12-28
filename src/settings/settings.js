@@ -8,6 +8,11 @@ class Settings extends React.Component {
       totalRounds: 24,
       maxRoundLength: 5
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
   }
   render() {
     const totalRoundOptions = [];
@@ -27,6 +32,26 @@ class Settings extends React.Component {
         </option>
       );
     }
+
+    const endOfRoundSignal = [10, 30];
+    const endOfRoundSignalOptions = [];
+    for (let value of endOfRoundSignal) {
+      endOfRoundSignalOptions.push(
+        <option key={value} value={value}>
+          {value}
+        </option>
+      );
+    }
+
+    const restPeriods = [30, 60];
+    const restPeriodOptions = [];
+    for (let value of restPeriods) {
+      restPeriodOptions.push(
+        <option key={value} value={value}>
+          {value}
+        </option>
+      );
+    }
     return (
       <div
         className={this.props.isSettingsDisplayed ? "settings row" : "inactive"}
@@ -36,7 +61,7 @@ class Settings extends React.Component {
           <br />
           <hr />
           <br />
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <label>
               <strong>TOTAL ROUNDS: </strong>
             </label>
@@ -49,6 +74,36 @@ class Settings extends React.Component {
               <strong>ROUND LENGTH (minutes): </strong>
             </label>
             <select type="number">{roundLengthOptions}</select>
+
+            <br />
+            <br />
+
+            <label>
+              <strong>END OF ROUND SIGNAL (seconds): </strong>
+            </label>
+            <select type="number">{endOfRoundSignalOptions}</select>
+
+            <br />
+            <br />
+
+            <label>
+              <strong>REST PERIOD (seconds): </strong>
+            </label>
+            <select type="number">{restPeriodOptions}</select>
+
+            <br />
+            <br />
+
+            <label>
+              <strong>START COUNTDOWN (seconds): </strong>
+            </label>
+            <select type="number">{endOfRoundSignalOptions}</select>
+
+            <br />
+            <br />
+            <button className="submit" type="submit">
+              SUBMIT
+            </button>
           </form>
         </div>
       </div>
