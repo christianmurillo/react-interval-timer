@@ -5,6 +5,7 @@ class Timer extends React.Component {
   constructor(props) {
     super(props);
     this.formatSecondForDisplay = this.formatSecondForDisplay.bind(this);
+    this.handleStartPauseClick = this.handleStartPauseClick.bind(this);
   }
 
   formatSecondForDisplay(roundSecond) {
@@ -12,6 +13,10 @@ class Timer extends React.Component {
       return "0" + roundSecond;
     }
     return roundSecond;
+  }
+
+  handleStartPauseClick() {
+    this.props.onStartPauseClick();
   }
 
   render() {
@@ -29,7 +34,23 @@ class Timer extends React.Component {
             <span>{this.formatSecondForDisplay(this.props.roundSecond)}</span>
           </h1>
         </div>
-        {/* controls container next */}
+        <div className="controls-container row">
+          <span
+            className={this.props.isTimerInProgress ? "pause" : "start"}
+            onClick={this.handleStartPauseClick}
+          >
+            {this.props.isTimerInProgress ? "PAUSE " : "START "}
+            <i
+              className={
+                this.props.isTimerInProgress ? "fa fa-pause" : "fa fa-play"
+              }
+              aria-hidden="true"
+            />
+          </span>{" "}
+          <span className="stop">
+            STOP <i className="fa fa-stop" aria-hidden="true" />
+          </span>
+        </div>
       </div>
     );
   }

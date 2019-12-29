@@ -23,3 +23,35 @@
 .time-container h1 {
   font-size: 5em;
 }
+
+.controls-container {
+  text-align: center;
+}
+
+.controls-container ul {
+  list-style: none;
+}
+
+.controls-container li {
+  float: left;
+  padding: 0 15px;
+}
+
+.controls-container span {
+  border: none;
+  padding: 15px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.start {
+  background-color: #848484;
+}
+.pause {
+  background-color: #a8a3a3;
+}
+.stop {
+  background-color: #b40431;
+}

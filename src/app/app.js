@@ -18,7 +18,8 @@ class App extends React.Component {
       isTimerDisplayed: false,
       roundMinute: 0,
       roundSecond: 0,
-      currentRound: 0
+      currentRound: 0,
+      isTimerInProgress: false
     };
     // This binding is necessary to make `this` work in the callback
     this.handleSettingsClick = this.handleSettingsClick.bind(this);
@@ -30,6 +31,7 @@ class App extends React.Component {
       this
     );
     this.handleSettingsSubmit = this.handleSettingsSubmit.bind(this);
+    this.handleStartPauseClick = this.handleStartPauseClick.bind(this);
   }
 
   handleSettingsClick() {
@@ -66,6 +68,14 @@ class App extends React.Component {
     this.setState({ startCountdown: parseInt(event.target.value, 10) });
   }
 
+  handleStartPauseClick() {
+    // toggle isTimerInProgress
+    this.setState(prevState => ({
+      isTimerInProgress: !prevState.isTimerInProgress
+    }));
+    // NEXT: play utterance
+  }
+
   render() {
     return (
       <div className="app">
@@ -94,6 +104,8 @@ class App extends React.Component {
           roundMinute={this.state.roundMinute}
           roundSecond={this.state.roundSecond}
           currentRound={this.state.currentRound}
+          isTimerInProgress={this.state.isTimerInProgress}
+          onStartPauseClick={this.handleStartPauseClick}
         />
       </div>
     );
