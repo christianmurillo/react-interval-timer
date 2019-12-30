@@ -21,18 +21,18 @@ class Settings extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     // get values
-    console.info(
-      "totalRounds: ",
-      this.props.totalRounds,
-      "\nroundLength: ",
-      this.props.roundLength,
-      "\nendOfRoundSignal: ",
-      this.props.endOfRoundSignal,
-      "\nrestPeriod: ",
-      this.props.restPeriod,
-      "\nstartCountdown: ",
-      this.props.startCountdown
-    );
+    // console.info(
+    //   "totalRounds: ",
+    //   this.props.totalRounds,
+    //   "\nroundLength: ",
+    //   this.props.roundLength,
+    //   "\nendOfRoundSignal: ",
+    //   this.props.endOfRoundSignal,
+    //   "\nrestPeriod: ",
+    //   this.props.restPeriod,
+    //   "\nstartCountdown: ",
+    //   this.props.startCountdown
+    // );
     // hide settings
     this.props.onSettingsSubmit();
   }

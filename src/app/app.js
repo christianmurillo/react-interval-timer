@@ -21,6 +21,10 @@ class App extends React.Component {
       currentRound: 0,
       isTimerInProgress: false
     };
+    this.synthesis = window.speechSynthesis;
+    this.startUtterance = new SpeechSynthesisUtterance("start");
+    this.pauseUtterance = new SpeechSynthesisUtterance("paused");
+    this.countDownTimer = null;
     // This binding is necessary to make `this` work in the callback
     this.handleSettingsClick = this.handleSettingsClick.bind(this);
     this.handleTotalRoundsChange = this.handleTotalRoundsChange.bind(this);
@@ -68,12 +72,32 @@ class App extends React.Component {
     this.setState({ startCountdown: parseInt(event.target.value, 10) });
   }
 
+  countDown() {
+    this.countDownTimer = window.setInterval(() => {
+      if (this.state.startCountdown === -1) {
+        window.clearInterval(this.countDownTimer);
+        this.synthesis.speak(this.startUtterance);
+      } else {
+        this.setState(state => ({
+          roundSecond: state.startCountdown,
+          startCountdown: --state.startCountdown
+        }));
+      }
+    }, 1000);
+  }
+
   handleStartPauseClick() {
+    if (!this.state.isTimerInProgress) {
+      this.countDown();
+    } else {
+      window.clearInterval(this.countDownTimer);
+      // clear other intervals
+      this.synthesis.speak(this.pauseUtterance);
+    }
     // toggle isTimerInProgress
-    this.setState(prevState => ({
-      isTimerInProgress: !prevState.isTimerInProgress
+    this.setState(state => ({
+      isTimerInProgress: !state.isTimerInProgress
     }));
-    // NEXT: play utterance
   }
 
   render() {
