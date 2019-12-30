@@ -1,0 +1,17 @@
+.countdown {
+  text-align: center;
+}
+
+.countdown span {
+  display: block;
+  border: none;
+  padding: 15px 20px;
+  font-size: 2em;
+  font-weight: bold;
+  border-radius: 12px;
+  background-color: #848484;
+}
+
+.inactive {
+  display: none;
+}

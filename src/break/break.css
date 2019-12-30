@@ -1,0 +1,17 @@
+.break {
+  text-align: center;
+}
+
+.break span {
+  display: block;
+  border: none;
+  padding: 15px 20px;
+  font-size: 2em;
+  font-weight: bold;
+  border-radius: 12px;
+  background-color: #b40431;
+}
+
+.inactive {
+  display: none;
+}

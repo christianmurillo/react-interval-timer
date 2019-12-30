@@ -3,6 +3,8 @@ import Header from "../header/header";
 import Utilities from "../utilities/utilities";
 import Settings from "../settings/settings";
 import Timer from "../timer/timer";
+import Break from "../break/break";
+import Countdown from "../countdown/countdown";
 import "./app.css";
 
 class App extends React.Component {
@@ -18,7 +20,9 @@ class App extends React.Component {
       roundMinute: 1,
       roundSecond: 0,
       currentRound: 0,
-      isTimerInProgress: false
+      isTimerInProgress: false,
+      isBreakInProgress: false,
+      isCountdownInProgress: false
     };
     this.synthesis = window.speechSynthesis;
     this.startUtterance = new SpeechSynthesisUtterance("start");
@@ -78,12 +82,13 @@ class App extends React.Component {
       if (this.state.startCountdown === -1) {
         window.clearInterval(this.countDownTimer);
         this.setState(state => ({
+          isCountdownInProgress: false,
           currentRound: ++state.currentRound
         }));
         this.startRoundTimer();
       } else {
         this.setState(state => ({
-          roundSecond: state.startCountdown,
+          isCountdownInProgress: true,
           startCountdown: --state.startCountdown
         }));
       }
@@ -166,6 +171,14 @@ class App extends React.Component {
           onRestPeriodChange={this.handleRestPeriodChange}
           startCountdown={this.state.startCountdown}
           onStartCountdownChange={this.handleStartCountdownChange}
+        />
+        <Countdown
+          isCountdownInProgress={this.state.isCountdownInProgress}
+          startCountdown={this.state.startCountdown}
+        />
+        <Break
+          isBreakInProgress={this.state.isBreakInProgress}
+          restPeriod={this.state.restPeriod}
         />
         <Timer
           isTimerDisplayed={this.state.isTimerDisplayed}
