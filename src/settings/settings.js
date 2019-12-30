@@ -124,7 +124,7 @@ class Settings extends React.Component {
             </label>
             <select
               type="number"
-              value={this.props.roundLength}
+              value={this.props.roundMinute}
               onChange={this.handleRoundLengthChange}
             >
               {roundLengthOptions}
