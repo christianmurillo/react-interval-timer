@@ -47,6 +47,7 @@ class App extends React.Component {
     );
     this.handleSettingsSubmit = this.handleSettingsSubmit.bind(this);
     this.handleStartPauseClick = this.handleStartPauseClick.bind(this);
+    this.handleStopClick = this.handleStopClick.bind(this);
   }
 
   componentWillUnmount() {
@@ -186,6 +187,14 @@ class App extends React.Component {
     }));
   }
 
+  handleStopClick() {
+    this.synthesis.speak(this.stopUtterance);
+    window.clearInterval(this.countDownTimer);
+    window.clearInterval(this.roundTimer);
+    window.clearInterval(this.breakTimer);
+    this.setState({ ...this.initialState });
+  }
+
   render() {
     return (
       <div className="app">
@@ -224,6 +233,7 @@ class App extends React.Component {
           currentRound={this.state.currentRound}
           isTimerInProgress={this.state.isTimerInProgress}
           onStartPauseClick={this.handleStartPauseClick}
+          onStopClick={this.handleStopClick}
         />
       </div>
     );

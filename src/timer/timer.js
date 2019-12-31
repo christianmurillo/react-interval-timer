@@ -6,6 +6,7 @@ class Timer extends React.Component {
     super(props);
     this.formatSecondForDisplay = this.formatSecondForDisplay.bind(this);
     this.handleStartPauseClick = this.handleStartPauseClick.bind(this);
+    this.handleStopClick = this.handleStopClick.bind(this);
   }
 
   formatSecondForDisplay(roundSecond) {
@@ -17,6 +18,10 @@ class Timer extends React.Component {
 
   handleStartPauseClick() {
     this.props.onStartPauseClick();
+  }
+
+  handleStopClick() {
+    this.props.onStopClick();
   }
 
   render() {
@@ -47,7 +52,7 @@ class Timer extends React.Component {
               aria-hidden="true"
             />
           </span>{" "}
-          <span className="stop">
+          <span className="stop" onClick={this.handleStopClick}>
             STOP <i className="fa fa-stop" aria-hidden="true" />
           </span>
         </div>
