@@ -14,6 +14,7 @@ class App extends React.Component {
       isSettingsDisplayed: true,
       totalRounds: 1,
       endOfRoundSignal: 10,
+      useEnteredRestPeriod: 30,
       restPeriod: 30,
       startCountdown: 10,
       isTimerDisplayed: false,
@@ -86,7 +87,10 @@ class App extends React.Component {
   }
 
   handleRestPeriodChange(event) {
-    this.setState({ restPeriod: parseInt(event.target.value, 10) });
+    this.setState({
+      useEnteredRestPeriod: parseInt(event.target.value, 10),
+      restPeriod: parseInt(event.target.value, 10)
+    });
   }
 
   handleStartCountdownChange(event) {
@@ -119,7 +123,8 @@ class App extends React.Component {
         this.setState(state => ({
           isBreakInProgress: false,
           currentRound: ++state.currentRound,
-          roundMinute: state.userEnteredRoundMinute
+          roundMinute: state.userEnteredRoundMinute,
+          restPeriod: state.useEnteredRestPeriod
         }));
         this.startRoundTimer();
       } else {
