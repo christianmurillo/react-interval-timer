@@ -10,13 +10,14 @@ import "./app.css";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.initialState = {
       isSettingsDisplayed: true,
       totalRounds: 1,
       endOfRoundSignal: 10,
       restPeriod: 30,
       startCountdown: 10,
       isTimerDisplayed: false,
+      userEnteredRoundMinute: 1,
       roundMinute: 1,
       roundSecond: 0,
       currentRound: 0,
@@ -24,12 +25,17 @@ class App extends React.Component {
       isBreakInProgress: false,
       isCountdownInProgress: false
     };
+    this.state = {
+      ...this.initialState
+    };
     this.synthesis = window.speechSynthesis;
     this.startUtterance = new SpeechSynthesisUtterance("start");
     this.pauseUtterance = new SpeechSynthesisUtterance("paused");
     this.stopUtterance = new SpeechSynthesisUtterance("stop, workout over");
+    this.breakUtterance = new SpeechSynthesisUtterance("break time");
     this.countDownTimer = null;
     this.roundTimer = null;
+    this.breakTimer = null;
     // This binding is necessary to make `this` work in the callback
     this.handleSettingsClick = this.handleSettingsClick.bind(this);
     this.handleTotalRoundsChange = this.handleTotalRoundsChange.bind(this);
@@ -41,6 +47,12 @@ class App extends React.Component {
     );
     this.handleSettingsSubmit = this.handleSettingsSubmit.bind(this);
     this.handleStartPauseClick = this.handleStartPauseClick.bind(this);
+  }
+
+  componentWillUnmount() {
+    window.clearInterval(this.countDownTimer);
+    window.clearInterval(this.roundTimer);
+    window.clearInterval(this.breakTimer);
   }
 
   handleSettingsClick() {
@@ -62,7 +74,10 @@ class App extends React.Component {
   }
 
   handleRoundLengthChange(event) {
-    this.setState({ roundMinute: parseInt(event.target.value, 10) });
+    this.setState({
+      userEnteredRoundMinute: parseInt(event.target.value, 10),
+      roundMinute: parseInt(event.target.value, 10)
+    });
   }
 
   handleEndOfRoundChange(event) {
@@ -78,6 +93,7 @@ class App extends React.Component {
   }
 
   initialCountDown() {
+    this.setState({ isCountdownInProgress: true });
     this.countDownTimer = window.setInterval(() => {
       if (this.state.startCountdown === -1) {
         window.clearInterval(this.countDownTimer);
@@ -88,8 +104,26 @@ class App extends React.Component {
         this.startRoundTimer();
       } else {
         this.setState(state => ({
-          isCountdownInProgress: true,
           startCountdown: --state.startCountdown
+        }));
+      }
+    }, 1000);
+  }
+
+  break() {
+    this.setState({ isBreakInProgress: true });
+    this.breakTimer = window.setInterval(() => {
+      if (this.state.restPeriod === -1) {
+        window.clearInterval(this.breakTimer);
+        this.setState(state => ({
+          isBreakInProgress: false,
+          currentRound: ++state.currentRound,
+          roundMinute: state.userEnteredRoundMinute
+        }));
+        this.startRoundTimer();
+      } else {
+        this.setState(state => ({
+          restPeriod: --state.restPeriod
         }));
       }
     }, 1000);
@@ -98,8 +132,6 @@ class App extends React.Component {
   startRoundTimer() {
     this.synthesis.speak(this.startUtterance);
     this.roundTimer = window.setInterval(() => {
-      console.info("roundMinute ", this.state.roundMinute);
-      console.info("roundSecond ", this.state.roundSecond);
       if (this.state.roundMinute !== 0 && this.state.roundSecond === 0) {
         this.setState(state => ({
           roundMinute: --state.roundMinute,
@@ -115,14 +147,16 @@ class App extends React.Component {
           )
         );
       } else if (this.state.roundMinute === 0 && this.state.roundSecond === 0) {
+        window.clearInterval(this.roundTimer);
         if (this.state.currentRound === this.state.totalRounds) {
-          window.clearInterval(this.roundTimer);
           this.synthesis.speak(this.stopUtterance);
-        } else {
-          // TODO: rest then continue with next round
+          this.setState({ ...this.initialState });
+        } else if (this.state.currentRound < this.state.totalRounds) {
+          this.synthesis.speak(this.breakUtterance);
+          this.break();
         }
       }
-      // leave this at end of function, decrement roundSecond
+      // decrement roundSecond
       if (this.state.roundSecond > 0) {
         this.setState(state => ({
           roundSecond: --state.roundSecond
@@ -135,13 +169,15 @@ class App extends React.Component {
     if (!this.state.isTimerInProgress) {
       if (this.state.startCountdown > -1) {
         this.initialCountDown(); // initial countdown hasn't completed
+      } else if (this.state.isBreakInProgress) {
+        this.break();
       } else {
         this.startRoundTimer();
       }
     } else {
       window.clearInterval(this.countDownTimer);
       window.clearInterval(this.roundTimer);
-      // clear other intervals
+      window.clearInterval(this.breakTimer);
       this.synthesis.speak(this.pauseUtterance);
     }
     // toggle isTimerInProgress
