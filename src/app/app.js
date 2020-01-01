@@ -58,9 +58,17 @@ class App extends React.Component {
   }
 
   handleSettingsClick() {
+    if (this.state.isTimerInProgress) {
+      return;
+    }
     this.setState(prevState => ({
       isSettingsDisplayed: !prevState.isSettingsDisplayed
     }));
+    if (this.state.isTimerDisplayed) {
+      this.setState(prevState => ({
+        isTimerDisplayed: !prevState.isTimerDisplayed
+      }));
+    }
   }
 
   handleSettingsSubmit() {
