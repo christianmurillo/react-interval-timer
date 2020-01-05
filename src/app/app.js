@@ -5,6 +5,7 @@ import Settings from "../settings/settings";
 import Timer from "../timer/timer";
 import Break from "../break/break";
 import Countdown from "../countdown/countdown";
+import Progress from "../progress/progress";
 import "./app.css";
 
 class App extends React.Component {
@@ -229,6 +230,14 @@ class App extends React.Component {
           onRestPeriodChange={this.handleRestPeriodChange}
           startCountdown={this.state.startCountdown}
           onStartCountdownChange={this.handleStartCountdownChange}
+        />
+        <Progress
+          isTimerInProgress={this.state.isTimerInProgress}
+          isCountdownInProgress={this.state.isCountdownInProgress}
+          isBreakInProgress={this.state.isBreakInProgress}
+          userEnteredRoundMinute={this.state.userEnteredRoundMinute}
+          roundMinute={this.state.roundMinute}
+          roundSecond={this.state.roundSecond}
         />
         <Countdown
           isCountdownInProgress={this.state.isCountdownInProgress}
