@@ -73,7 +73,7 @@ class Settings extends React.Component {
       );
     }
 
-    const restPeriods = [30, 60];
+    const restPeriods = [15, 20, 30, 60];
     const restPeriodOptions = [];
     for (let value of restPeriods) {
       restPeriodOptions.push(
